@@ -1,0 +1,44 @@
+{
+  "id": "4540582",
+  "name": "捡垃圾",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "765544",
+      "name": "订单",
+      "font_class": "order",
+      "unicode": "e626",
+      "unicode_decimal": 58918
+    },
+    {
+      "icon_id": "6911486",
+      "name": "首页",
+      "font_class": "home",
+      "unicode": "e624",
+      "unicode_decimal": 58916
+    },
+    {
+      "icon_id": "9039242",
+      "name": "我的",
+      "font_class": "mine",
+      "unicode": "e631",
+      "unicode_decimal": 58929
+    },
+    {
+      "icon_id": "11523076",
+      "name": "消息",
+      "font_class": "message",
+      "unicode": "e64c",
+      "unicode_decimal": 58956
+    },
+    {
+      "icon_id": "23938597",
+      "name": "发布",
+      "font_class": "publish",
+      "unicode": "e7f8",
+      "unicode_decimal": 59384
+    }
+  ]
+}
