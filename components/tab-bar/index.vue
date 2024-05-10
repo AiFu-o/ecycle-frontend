@@ -67,7 +67,7 @@
 		flex-direction: row;
 		flex-wrap: nowrap;
 		justify-content: space-between;
-		padding-bottom: 10rpx;
+		padding-bottom: 40rpx;
 		backdrop-filter: blur(10px);
 
 		.tab-bar-item {

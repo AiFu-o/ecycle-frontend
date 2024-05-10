@@ -1,11 +1,11 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-		{
-			"path": "pages/index/index",
-			"style": {
-				"navigationBarTitleText": "uni-app"
-			}
-		},
+		// {
+		// 	"path": "pages/index/index",
+		// 	"style": {
+		// 		"navigationBarTitleText": "uni-app"
+		// 	}
+		// },
 		{
 			"path": "pages/home/home",
 			"style": {
@@ -35,12 +35,18 @@
 		{
 			"path": "pages/mine/mine",
 			"style": {
-				"navigationBarTitleText": "我的"
+				"navigationBarTitleText": "我的",
+				"navigationStyle": "custom"
 			}
 		}
 	],
+	"easycom": {
+		"autoscan": false,
+		"custom": {
+			"circle-tab-bar":"@/components/tab-bar/index.vue"
+		}
+	},
 	"globalStyle": {
-		"navigationBarTextStyle": "#333333",
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#FFFFFF",
 		"backgroundColor": "#FFFFFF"

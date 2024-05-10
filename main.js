@@ -1,6 +1,6 @@
 import App from './App'
 import uviewPlus from '@/uni_modules/uview-plus'
-import CustomComponents from "./commons/index.js";
+// import CustomComponents from "./commons/index.js";
 
 // #ifndef VUE3
 console.log("vue2")
@@ -27,7 +27,7 @@ console.log("vue3")
 export function createApp() {
 	const app = createSSRApp(App)
 	app.use(uviewPlus);
-	app.use(CustomComponents);
+	// app.use(CustomComponents);
 	return {
 		app
 	}
