@@ -1,12 +1,14 @@
 <template>
 	<view class="tab-bar-all">
-		<view class="tab-bar-item">
+		<view class="tab-bar-item" @click="toLink('/pages/home/home')"
+			:class="{'current-tab-bar-item':currentPageName == 'home'}">
 			<i class="iconfont tab-bar-item-icon icon-home" />
 			<view class="tab-bar-item-title">
 				首页
 			</view>
 		</view>
-		<view class="tab-bar-item">
+		<view class="tab-bar-item" @click="toLink('/pages/order/order')"
+			:class="{'current-tab-bar-item':currentPageName == 'order'}">
 			<i class="iconfont tab-bar-item-icon icon-order" />
 			<view class="tab-bar-item-title">
 				订单
@@ -17,13 +19,15 @@
 				<i class="iconfont tab-bar-item-icon icon-publish" />
 			</view>
 		</view>
-		<view class="tab-bar-item">
+		<view class="tab-bar-item" @click="toLink('/pages/message/message')"
+			:class="{'current-tab-bar-item':currentPageName == 'message'}">
 			<i class="iconfont tab-bar-item-icon icon-message" />
 			<view class="tab-bar-item-title">
 				消息
 			</view>
 		</view>
-		<view class="tab-bar-item">
+		<view class="tab-bar-item" @click="toLink('/pages/mine/mine')"
+			:class="{'current-tab-bar-item':currentPageName == 'mine'}">
 			<i class="iconfont tab-bar-item-icon icon-mine" />
 			<view class="tab-bar-item-title">
 				我的
@@ -33,6 +37,23 @@
 </template>
 
 <script>
+	export default {
+		data() {
+			return {
+
+			}
+		},
+		props: {
+			currentPageName: String
+		},
+		methods: {
+			toLink(path) {
+				uni.navigateTo({
+					url: path
+				})
+			}
+		}
+	}
 </script>
 
 <style lang="scss">
@@ -55,7 +76,7 @@
 			color: #222222;
 			font-size: 12px;
 			padding-top: 20rpx;
-			border-top: 1px solid red;
+			// border-top: 1px solid red;
 			position: relative;
 
 			.tab-bar-item-icon {
@@ -70,8 +91,13 @@
 			border-top: none;
 		}
 
+		.current-tab-bar-item {
+			color: #1bac22;
+			font-weight: 550;
+		}
+
 		.tab-bar-circle-item {
-			background: #93FC97;
+			background: #1bac22;
 			color: #fff;
 			width: 100rpx;
 			height: 100rpx;

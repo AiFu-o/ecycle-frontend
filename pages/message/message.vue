@@ -1,7 +1,7 @@
 <template>
 	<view>
-		首页
-		<circle-tab-bar currentPageName="home"></circle-tab-bar>
+		消息
+		<circle-tab-bar currentPageName="message"></circle-tab-bar>
 	</view>
 </template>
 
@@ -18,6 +18,6 @@
 	}
 </script>
 
-<style>
+<style lang="scss">
 
 </style>

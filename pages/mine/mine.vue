@@ -1,7 +1,7 @@
 <template>
 	<view>
-		首页
-		<circle-tab-bar currentPageName="home"></circle-tab-bar>
+		我的
+		<circle-tab-bar currentPageName="mine"></circle-tab-bar>
 	</view>
 </template>
 
