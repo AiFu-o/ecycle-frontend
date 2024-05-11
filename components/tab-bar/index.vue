@@ -109,6 +109,8 @@
 
 			.tab-bar-item-icon {
 				font-size: 58rpx;
+				height: 100rpx;
+				line-height: 100rpx;
 			}
 		}
 

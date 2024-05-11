@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 4540582 */
-  src: url('iconfont.woff2?t=1715310485172') format('woff2'),
-       url('iconfont.woff?t=1715310485172') format('woff'),
-       url('iconfont.ttf?t=1715310485172') format('truetype');
+  src: url('iconfont.woff2?t=1715413744285') format('woff2'),
+       url('iconfont.woff?t=1715413744285') format('woff'),
+       url('iconfont.ttf?t=1715413744285') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,34 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-lianxiwomen:before {
+  content: "\e686";
+}
+
+.icon-dizhi:before {
+  content: "\e616";
+}
+
+.icon-fanhui:before {
+  content: "\e61e";
+}
+
+.icon-yinsitiaokuan:before {
+  content: "\e760";
+}
+
+.icon-yixiajia:before {
+  content: "\e667";
+}
+
+.icon-a-03_icon_wode_chushouzhong2x:before {
+  content: "\e670";
+}
+
+.icon-Sold-yishouchu:before {
+  content: "\e617";
 }
 
 .icon-order:before {
