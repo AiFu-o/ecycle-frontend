@@ -6,14 +6,18 @@
 </template>
 
 <script>
+	import circleTabBar from "@/components/tab-bar/index.vue";
 	export default {
+		components: {
+			circleTabBar
+		},
 		data() {
 			return {
-				
+
 			}
 		},
 		methods: {
-			
+
 		}
 	}
 </script>

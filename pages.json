@@ -43,7 +43,6 @@
 	"easycom": {
 		"autoscan": false,
 		"custom": {
-			"circle-tab-bar":"@/components/tab-bar/index.vue"
 		}
 	},
 	"globalStyle": {

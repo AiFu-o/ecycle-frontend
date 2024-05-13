@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "391436",
+      "name": "默认头像",
+      "font_class": "morentouxiang",
+      "unicode": "e647",
+      "unicode_decimal": 58951
+    },
+    {
       "icon_id": "255817",
       "name": "联系我们",
       "font_class": "lianxiwomen",
@@ -22,7 +29,7 @@
     {
       "icon_id": "33987002",
       "name": "返回",
-      "font_class": "fanhui",
+      "font_class": "back",
       "unicode": "e61e",
       "unicode_decimal": 58910
     },
@@ -50,7 +57,7 @@
     {
       "icon_id": "30215411",
       "name": "Sold-已售出",
-      "font_class": "yishouchu",
+      "font_class": "Sold-yishouchu",
       "unicode": "e617",
       "unicode_decimal": 58903
     },

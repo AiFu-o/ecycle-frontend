@@ -3,21 +3,22 @@
 		<!-- 头部 -->
 		<view class="mine-top" :style="{'paddingTop':(statusBarHeight+'px')}">
 			<view class="mine-top-header">
-				<view class="mine-top-header-left">
-
+				<view class="mine-top-header-left" @click="logout">
+					{{userInfo && userInfo.userId?'退出登录':''}}
 				</view>
 				<view class="mine-top-header-main">
 					我的
 				</view>
-				<view class="mine-top-header-right">
-
-				</view>
 			</view>
 			<view class="mine-top-content">
-				<img class="mine-profile" src="../../static/logo.png" alt="">
+				<img v-if="userInfo && userInfo.profile" class="mine-profile" :src="userInfo.profile">
+				<i class="default-user-profile iconfont icon-morentouxiang" v-else></i>
 				<view class="mine-user-info">
-					<view class="mine-username">
-						焦凯
+					<view class="mine-username" v-if="userInfo && userInfo.userId">
+						{{userInfo.nickName}}
+					</view>
+					<view class="mine-username" v-else @click="doLogin">
+						点击登录
 					</view>
 				</view>
 			</view>
@@ -75,16 +76,20 @@
 				</view>
 			</view>
 		</view>
-
 		<!-- tab-bar -->
 		<circle-tab-bar currentPageName="mine"></circle-tab-bar>
 	</view>
 </template>
 
 <script>
+	import circleTabBar from "@/components/tab-bar/index.vue";
 	export default {
+		components: {
+			circleTabBar
+		},
 		data() {
 			return {
+				userInfo: {},
 				statusBarHeight: 0,
 				mineBottomItemList: [{
 						key: "collect",
@@ -132,15 +137,54 @@
 			}
 		},
 		mounted() {
-			const that = this;
 			uni.getSystemInfo({
-				success(systemInfo) {
-					that.statusBarHeight = systemInfo.statusBarHeight;
+				success: (systemInfo) => {
+					this.statusBarHeight = systemInfo.statusBarHeight;
 				}
 			});
+			this.getUserInfo();
 		},
 		methods: {
-
+			logout() {
+				if (this.userInfo && this.userInfo.userId) {
+					uni.request({
+						url: "/auth-api/logout",
+						method: "POST",
+						success: (res) => {
+							uni.clearStorage("userInfo");
+							uni.clearStorage("token");
+							this.userInfo = {};
+						}
+					})
+				}
+			},
+			getUserInfo() {
+				this.userInfo = uni.getStorageSync("userInfo");
+			},
+			doLogin() {
+				uni.login({
+					"provider": "weixin",
+					"onlyAuthorize": true,
+					success: (e) => {
+						uni.request({
+							url: "/auth-api/wx/login",
+							method: "POST",
+							header: {
+								"content-type": "application/json;charset=utf-8"
+							},
+							data: {
+								"jsCode": e.code
+							},
+							success: (res) => {
+								uni.setStorageSync("userInfo", res.data);
+								uni.setStorageSync("token", res.data.token);
+								this.userInfo = res.data;
+							}
+						})
+					},
+					fail: function(err) {}
+				})
+			}
 		}
 	}
 </script>
@@ -168,18 +212,14 @@
 
 		.mine-top-header-main {
 			text-align: center;
+			flex: 1;
+			padding-right: calc(150rpx + 15px);
 		}
 
 		.mine-top-header-left {
 			width: 150rpx;
 			text-align: left;
-			margin-left: 10px;
-		}
-
-		.mine-top-header-right {
-			width: 150rpx;
-			text-align: right;
-			margin-right: 10px;
+			margin-left: 15px;
 		}
 	}
 
@@ -193,7 +233,19 @@
 			height: 100rpx;
 			border-radius: 100%;
 			margin-left: 40rpx;
-			border: 2px solid rgb(255, 255, 255, 0.3);
+			border: 4rpx solid rgb(255, 255, 255, 0.3);
+		}
+
+		.default-user-profile {
+			width: 100rpx;
+			height: 100rpx;
+			border-radius: 100%;
+			margin-left: 40rpx;
+			border: 4rpx solid rgb(255, 255, 255, 0.3);
+			font-size: 70rpx;
+			text-align: center;
+			line-height: 74rpx;
+			color: #8a8a8a;
 		}
 
 		.mine-user-info {
@@ -203,6 +255,18 @@
 			color: #fff;
 			font-size: 32rpx;
 			font-weight: 600;
+
+			.mine-no-login-button {
+				border: none;
+				padding: 0;
+				margin: 0;
+				color: #fff;
+				font-size: 32rpx;
+				font-weight: 600;
+				display: inline-block;
+				vertical-align: middle;
+				line-height: 108rpx;
+			}
 		}
 	}
 
@@ -237,17 +301,6 @@
 		overflow: hidden;
 		background:
 			linear-gradient(135deg, rgba(102, 206, 105, 1) 0%, rgba(45, 179, 113, 1) 100%);
-	}
-
-	.mine-recycler-apply::before {
-		width: 220rpx;
-		height: 100rpx;
-		content: '';
-		position: absolute;
-		right: 20rpx;
-		top: 0rpx;
-		background: url("../../static/mine/recycler-apply-bg.png") no-repeat right top;
-		background-size: 170rpx 80rpx;
 	}
 
 	.mine-order {
@@ -298,7 +351,7 @@
 			}
 		}
 	}
-	
+
 	.mine-tools {
 		margin: 40rpx;
 		width: calc(100% - 80rpx);
@@ -307,34 +360,34 @@
 		padding: 40rpx;
 		color: #222;
 		box-sizing: border-box;
-	
+
 		.mine-tools-top {
 			overflow: hidden;
 			line-height: 48rpx;
 			height: 48rpx;
-	
+
 			.mine-tools-top-left {
 				font-size: 28rpx;
 				font-weight: 550;
 				float: left;
 			}
 		}
-	
+
 		.mine-tools-content {
 			display: flex;
 			gap: 40rpx;
 			justify-content: space-between;
 			margin-top: 30rpx;
-	
+
 			.mine-tools-content-item {
 				text-align: center;
-	
+
 				.mine-tools-content-title {
 					font-size: 12px;
 					margin-top: 6px;
 					font-weight: 550;
 				}
-	
+
 				.mine-tools-content-icon {
 					font-size: 40rpx;
 				}
