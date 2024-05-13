@@ -66,7 +66,8 @@
 				<text class="mine-tools-top-left">其他工具</text>
 			</view>
 			<view class="mine-tools-content">
-				<view class="mine-tools-content-item" v-for="item in toolsItemList" :key="item.key">
+				<view class="mine-tools-content-item" @click="item['on-click']" v-for="item in toolsItemList"
+					:key="item.key">
 					<i :class="('mine-tools-content-icon iconfont '+ item.icon)">
 
 					</i>
@@ -125,13 +126,19 @@
 					},
 					{
 						key: "privacyPolicy",
-						title: "隐私条款",
-						icon: "icon-yinsitiaokuan"
+						title: "隐私政策",
+						icon: "icon-yinsitiaokuan",
+						"on-click": () => {
+							this.toPath('/pages/privacy-policy/privacy-policy');
+						}
 					},
 					{
 						key: "lianxiwomen",
 						title: "联系我们",
-						icon: "icon-lianxiwomen"
+						icon: "icon-lianxiwomen",
+						"on-click": () => {
+							this.openContact();
+						}
 					}
 				],
 			}
@@ -145,6 +152,16 @@
 			this.getUserInfo();
 		},
 		methods: {
+			toPath(path) {
+				uni.navigateTo({
+					url: path
+				})
+			},
+			openContact() {
+				uni.makePhoneCall({
+					phoneNumber: "18519352332"
+				})
+			},
 			logout() {
 				if (this.userInfo && this.userInfo.userId) {
 					uni.request({
