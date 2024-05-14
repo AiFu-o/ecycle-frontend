@@ -54,7 +54,16 @@
 				"enablePullDownRefresh": false
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/address/address",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的地址",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"easycom": {
 		"autoscan": false,
 		"custom": {
