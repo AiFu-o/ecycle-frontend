@@ -39,6 +39,13 @@
 				"navigationBarTitleText": "隐私政策",
 				"enablePullDownRefresh": false
 			}
+		},
+		{
+			"path": "pages/commodity/history-view-order/history-view-order",
+			"style": {
+				"navigationBarTitleText": "浏览记录",
+				"enablePullDownRefresh": false
+			}
 		}
 	],
 	"easycom": {

@@ -34,6 +34,7 @@ export function createApp() {
 }
 // #endif
 
+
 const requestUrl = "http://localhost:9000"
 
 uni.addInterceptor('request', {

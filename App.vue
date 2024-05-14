@@ -18,4 +18,10 @@
 
 <style>
 	/*每个页面公共css */
+	.medicine-title{
+		text-align: center;
+		width: 100%;
+		color: #999999;
+		font-size: 12px;
+	}
 </style>

@@ -23,7 +23,8 @@
 				</view>
 			</view>
 			<view class="mine-top-bottom">
-				<view class="mine-top-bottom-item" v-for="item in mineBottomItemList" :key="item.key">
+				<view class="mine-top-bottom-item" @click="item['on-click']" v-for="item in mineBottomItemList"
+					:key="item.key">
 					<view class="mine-top-bottom-item-count">
 						{{item.count}}
 					</view>
@@ -100,7 +101,10 @@
 					{
 						key: "history",
 						title: "历史浏览",
-						count: 0
+						count: 0,
+						"on-click": () => {
+							this.toPath("/pages/commodity/history-view-order/history-view-order");
+						}
 					}
 				],
 				orderItemList: [{
