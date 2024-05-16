@@ -1,5 +1,6 @@
 import App from './App'
 import uviewPlus from '@/uni_modules/uview-plus'
+import "@/uni_modules/uview-plus/index.scss";
 // import CustomComponents from "./commons/index.js";
 
 // #ifndef VUE3

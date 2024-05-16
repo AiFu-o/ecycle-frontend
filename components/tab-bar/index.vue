@@ -1,6 +1,6 @@
 <template>
 	<view class="tab-bar-all">
-		<view class="tab-bar-item" @click="toLink('/pages/home/home')"
+		<view class="tab-bar-item" @click="toLink('/pages/commodity/default-list')"
 			:class="{'current-tab-bar-item':currentPageName == 'home'}">
 			<i class="iconfont tab-bar-item-icon icon-home" />
 			<view class="tab-bar-item-title">
