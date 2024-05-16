@@ -26,7 +26,7 @@
 				<view class="mine-top-bottom-item" @click="item['on-click']" v-for="item in mineBottomItemList"
 					:key="item.key">
 					<view class="mine-top-bottom-item-count">
-						{{item.count}}
+						{{mineBottomData[item.key]}}
 					</view>
 					<view class="mine-top-bottom-item-title">
 						{{item.title}}
@@ -52,7 +52,6 @@
 			<view class="mine-order-content">
 				<view class="mine-order-content-item" v-for="item in orderItemList" :key="item.key">
 					<i :class="('mine-order-content-icon iconfont '+ item.icon)">
-
 					</i>
 					<view class="mine-order-content-title">
 						{{item.title}}
@@ -93,17 +92,23 @@
 			return {
 				userInfo: {},
 				statusBarHeight: 0,
+				mineBottomData: {
+					favoriteCount: 0,
+					historyCount: 0,
+				},
 				mineBottomItemList: [{
-						key: "collect",
+						key: "favoriteCount",
 						title: "收藏",
-						count: 0
+						"on-click": () => {
+							this.toPath("/pages/commodity/favorite/favorite");
+						}
 					},
 					{
-						key: "history",
+						key: "historyCount",
 						title: "历史浏览",
 						count: 0,
 						"on-click": () => {
-							this.toPath("/pages/commodity/history-view-order/history-view-order");
+							this.toPath("/pages/commodity/history-view/history-view");
 						}
 					}
 				],
@@ -148,14 +153,66 @@
 			}
 		},
 		mounted() {
-			uni.getSystemInfo({
-				success: (systemInfo) => {
-					this.statusBarHeight = systemInfo.statusBarHeight;
-				}
-			});
+			const systemInfo = uni.getSystemInfoSync();
+			this.statusBarHeight = systemInfo.statusBarHeight;
 			this.getUserInfo();
+			this.loadTopCount();
 		},
 		methods: {
+			loadTopCount() {
+				Promise.all([this.loadFavoriteCount(),
+					this.loadHistoryCount()
+				]).then(datas => {
+					let favoriteCount = 0,
+						historyCount = 0;
+					if (datas && datas[0]) {
+						favoriteCount = datas[0];
+					}
+					if (datas && datas[1]) {
+						historyCount = datas[1];
+					}
+					this.mineBottomData = {
+						favoriteCount,
+						historyCount
+					};
+				})
+			},
+			loadHistoryCount() {
+				return new Promise((resolve, reject) => {
+					uni.request({
+						url: "/commodity-api/commodity/view-record/count",
+						method: "GET",
+						success(res) {
+							if (res.data.code == 0) {
+								resolve(res.data.result);
+							} else {
+								reject(res.data.msg);
+							}
+						},
+						fail(err) {
+							reject(err);
+						}
+					})
+				});
+			},
+			loadFavoriteCount() {
+				return new Promise((resolve, reject) => {
+					uni.request({
+						url: "/commodity-api/favorite/count",
+						method: "GET",
+						success(res) {
+							if (res.data.code == 0) {
+								resolve(res.data.result);
+							} else {
+								reject(res.data.msg);
+							}
+						},
+						fail(err) {
+							reject(err);
+						}
+					})
+				});
+			},
 			toPath(path) {
 				uni.navigateTo({
 					url: path

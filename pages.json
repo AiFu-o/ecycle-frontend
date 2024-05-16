@@ -57,13 +57,29 @@
 			}
 		},
 		{
-			"path": "pages/commodity/history-view-order/history-view-order",
+			"path": "pages/commodity/history-view/history-view",
 			"style": {
 				"navigationBarTitleText": "浏览记录",
 				"enablePullDownRefresh": false
 			}
+		},
+		{
+			"path": "pages/commodity/favorite/favorite",
+			"style": {
+				"navigationBarTitleText": "收藏",
+				"enablePullDownRefresh": false
+			}
 		}
-	],
+	    ,{
+            "path" : "pages/address/address",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的地址",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"easycom": {
 		"autoscan": false,
 		"custom": {
