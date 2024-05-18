@@ -131,7 +131,10 @@
 				toolsItemList: [{
 						key: "address",
 						title: "我的地址",
-						icon: "icon-dizhi"
+						icon: "icon-dizhi",
+						"on-click": () => {
+							this.toPath("/pages/address/address");
+						}
 					},
 					{
 						key: "privacyPolicy",

@@ -1,5 +1,4 @@
 <style lang="scss">
-	@import "@/uni_modules/uview-plus/index.scss";
 	@import "./static/iconfont/iconfont.css";
 </style>
 <script>
