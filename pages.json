@@ -1,6 +1,13 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+		    "path" : "pages/mine/recycler-apply/recycler-apply",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "回收商招募"
+		    }
+		},
+		{
 			"path": "pages/search/index",
 			"style": {
 				"navigationBarTitleText": "搜索",

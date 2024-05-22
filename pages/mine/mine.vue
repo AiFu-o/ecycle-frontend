@@ -36,7 +36,7 @@
 		</view>
 
 		<!-- 回收商申请 -->
-		<view class="mine-recycler-apply">
+		<view class="mine-recycler-apply" @click="toPath('/pages/mine/recycler-apply/recycler-apply')">
 			认证成为回收商
 		</view>
 

@@ -5,5 +5,6 @@ const gerPreviewUrl = (fileId) => {
 }
 
 export default {
-	gerPreviewUrl
+	gerPreviewUrl,
+	baseUrl: url
 };

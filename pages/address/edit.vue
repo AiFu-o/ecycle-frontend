@@ -244,6 +244,7 @@
 		height: 100vh;
 		display: flex;
 		flex-direction: column;
+		background: #F9FBFD;
 
 		.address-edit-content {
 			padding: 40rpx;

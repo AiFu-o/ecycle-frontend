@@ -150,7 +150,7 @@
 		justify-content: center;
 		flex-direction: column;
 		height: 100%;
-		background: #fbfbfb;
+		background: #F9FBFD;
 
 		button {
 			background: #2db371 !important;
@@ -163,7 +163,7 @@
 	.address-list {
 		position: relative;
 		height: 100%;
-		background: #fbfbfb;
+		background: #F9FBFD;
 		display: flex;
 		flex-direction: column;
 		gap: 20rpx;
