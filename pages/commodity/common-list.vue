@@ -1,7 +1,7 @@
 <template>
 	<view style="height:100%;">
 		<scroll-view style="height:100%;" scroll-y="true" @refresherrefresh="refreshAll" @scrolltolower="loadMoreData"
-			:refresher-enabled="true" :refresher-triggered="cloading" @refresherrestore="refreshAllOver" >
+			:refresher-enabled="refresherEnabled" :refresher-triggered="cloading" @refresherrestore="refreshAllOver" >
 			<up-waterfall v-model="flowList" ref="common-commodity-list-waterfall" :add-time="50">
 				<template v-slot:left="{leftList}">
 					<commodityShowItem v-for="(item, index) in leftList" :key="index" :commodityInfo="item" ></commodityShowItem>
@@ -40,7 +40,8 @@
 				flowList:[],
 				loadStatus: 'loadmore',
 				currentPageIndex: 0,
-				currentPageSize: 20,
+				currentPageSize: 10,
+				refresherEnabled: true,
 				cloading: false,
 			}
 		},
@@ -56,14 +57,47 @@
 				this.loadData();
 			},
 			loadData(){
+				if (!this.refresherEnabled) {
+					return;
+				}
 				this.currentPageIndex++;
-				setTimeout(()=>{
-					this.flowList = _.concat(this.flowList,[{title:"a"},{title:"b"},{title:"c"},{title:"d"},{title:"e"},{title:"f"},{title:"g"},{title:"h"}]);
-					console.log("change flowList:",this.flowList.length);
+				let queryConfig = {
+					"isPage": true,
+					"pageIndex": this.currentPageIndex,
+					"pageSize": this.currentPageSize,
+					"input": ""
+				};
+				uni.request({
+					url: "/commodity-api/commodity/pageQueryAll",
+					method: "POST",
+					data: queryConfig
+				}).then((res)=>{
+					let _data = res.data;
+					if (_data.code == 0) {
+						let result = _data.result;
+						let newList = [];
+						newList = _.concat([],result.dataList);
+						this.flowList = _.concat(this.flowList,newList);
+						if (this.flowList.length >= result.total) {
+							this.refresherEnabled = false;
+						}
+					}
 					if (this.cloading) {
 						this.cloading = false;
 					}
-				},1000)
+				},(err)=>{
+					if (this.cloading) {
+						this.cloading = false;
+					}
+				})
+				
+				// setTimeout(()=>{
+				// 	this.flowList = _.concat(this.flowList,[{title:"a"},{title:"b"},{title:"c"},{title:"d"},{title:"e"},{title:"f"},{title:"g"},{title:"h"}]);
+				// 	console.log("change flowList:",this.flowList.length);
+				// 	if (this.cloading) {
+				// 		this.cloading = false;
+				// 	}
+				// },1000)
 			},
 		}
 	}

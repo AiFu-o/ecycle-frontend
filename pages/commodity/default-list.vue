@@ -16,6 +16,7 @@
 </template>
 
 <script>
+	import _ from "lodash";
 	import circleTabBar from "@/components/tab-bar/index.vue";
 	import commonList from "./common-list.vue";
 	export default {
@@ -28,50 +29,19 @@
 				layoutContainerH: 0,
 				layoutContainerPaddingTop: 0,
 				listContainerH: 0,
-				currentCategory:"",
+				currentCategory: "",
+				currentCategoryText: "",
 				tabList:[
 					{
-						name: "推荐1",
+						name: "推荐",
 						key: "tuijian"
 					},
-					{
-						name: "纸质",
-						key: "zhizhi"
-					},
-					{
-						name: "金属",
-						key: "jinshu"
-					},
-					{
-						name: "塑料",
-						key: "suliao"
-					},
-					{
-						name: "电池",
-						key: "dianchi"
-					},
-					{
-						name: "居家",
-						key: "jujia"
-					},
-					{
-						name: "衣物",
-						key: "yiwu"
-					},
-					{
-						name: "数码",
-						key: "shuma"
-					},
-					{
-						name: "交通工具",
-						key: "jiaotong"
-					}
 				],
 			}
 		},
 		mounted() {
 			this.mathLayoutParam();
-			// this.onLoad();
+			this.loadPageInfo();
 		},
 		methods: {
 			mathLayoutParam(){
@@ -83,13 +53,41 @@
 				this.listContainerH = layoutContainerH - 40 - 44 -52;
 			},
 			onTabSelect(_item){
-				if (!_item || !_item.key) return;
-				this.currentCategory = _item.key;
+				if (!_item || !_item.name || !_item.name) return;
+				this.currentCategory = _item.name;
+				this.currentCategoryText = _item.title;
+				this.onSearchRowClick();
 			},
 			onSearchRowClick(){
 				uni.navigateTo({
-					url: '/pages/search/index'
+					url: `/pages/search/index?searchText=${this.currentCategoryText}`
 				})
+			},
+			loadPageInfo(){
+				this.loadCommodityCategory();
+			},
+			loadCommodityCategory(){
+				uni.request({
+					url: "/commodity-api/commodity-category/queryAll",
+					method: "GET"
+				}).then((res)=>{
+					let _data = res.data;
+					if (_data.code == 0) {
+						let newTabList = [
+							{
+								name: "推荐",
+								key: "tuijian"
+							}
+						];
+						_.forEach(_data.result,(item)=>{
+							newTabList.push({
+								name: item.title,
+								key: item.name
+							});
+						});
+						this.tabList = newTabList;
+					}
+				},(err)=>{})
 			},
 		}
 	}
@@ -101,7 +99,7 @@
 	padding-bottom: 100rpx;
 	background-color: #f5f5f5;
 	.search-row-container{
-		height: 40px;
+		height: 80rpx;
 		width: 96vw;
 		margin: 0 auto;
 		box-sizing: border-box;

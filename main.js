@@ -36,7 +36,7 @@ export function createApp() {
 // #endif
 
 
-const requestUrl = "http://localhost:9000"
+const requestUrl = "https://www.xiaoxunkj.com/api"
 
 uni.addInterceptor('request', {
 	invoke(args) {
