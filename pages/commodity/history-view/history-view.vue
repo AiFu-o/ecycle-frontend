@@ -17,51 +17,6 @@
 					</view>
 				</view>
 			</view>
-			<view class="history-view-day" v-for="(commodities,key) in dataList" :key="key">
-				<view class="history-view-time">
-					{{key}}
-				</view>
-				<view class="history-view-content">
-					<view class="history-view-comodity" v-for="commodity in commodities" :key="commodity.id">
-						<image class="history-view-comodity-img" :src="commodity.coverFileUrl" lazy-load
-							mode="aspectFill">
-						</image>
-						<view class="history-view-comodity-price">
-							{{commodity.amount}}<text>元</text>
-						</view>
-					</view>
-				</view>
-			</view>
-			<view class="history-view-day" v-for="(commodities,key) in dataList" :key="key">
-				<view class="history-view-time">
-					{{key}}
-				</view>
-				<view class="history-view-content">
-					<view class="history-view-comodity" v-for="commodity in commodities" :key="commodity.id">
-						<image class="history-view-comodity-img" :src="commodity.coverFileUrl" lazy-load
-							mode="aspectFill">
-						</image>
-						<view class="history-view-comodity-price">
-							{{commodity.amount}}<text>元</text>
-						</view>
-					</view>
-				</view>
-			</view>
-			<view class="history-view-day" v-for="(commodities,key) in dataList" :key="key">
-				<view class="history-view-time">
-					{{key}}
-				</view>
-				<view class="history-view-content">
-					<view class="history-view-comodity" v-for="commodity in commodities" :key="commodity.id">
-						<image class="history-view-comodity-img" :src="commodity.coverFileUrl" lazy-load
-							mode="aspectFill">
-						</image>
-						<view class="history-view-comodity-price">
-							{{commodity.amount}}<text>元</text>
-						</view>
-					</view>
-				</view>
-			</view>
 			<view class="medicine-title">
 				{{noData?'没有更多了～':'正在加载'}}
 			</view>

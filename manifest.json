@@ -60,7 +60,8 @@
             "scope.userLocation" : {
                 "desc" : "显示距离"
             }
-        }
+        },
+		"requiredPrivateInfos": ["getLocation","chooseLocation"]
     },
     "mp-alipay" : {
         "usingComponents" : true
