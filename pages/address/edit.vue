@@ -166,9 +166,7 @@
 								icon: false,
 								message: "保存成功",
 							})
-							uni.navigateTo({
-								url: "/pages/address/address"
-							})
+							uni.navigateBack();
 						} else {
 							this.$refs.saveToast.show({
 								type: 'error',
@@ -208,7 +206,6 @@
 				uni.request({
 					url: `/commodity-api/region-data/geocode?longitude=${longitude}&latitude=${latitude}`,
 					success: (res) => {
-						debugger
 						let data = res.data.result.regeocode.addressComponent;
 						let stressCode = data.towncode.substring(0, 9);
 						let city = data.city;

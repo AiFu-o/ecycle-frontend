@@ -1,5 +1,5 @@
 <template>
-	<view :style="`height: ${layoutContainerH}px;`">
+	<view :style="`height: ${layoutContainerH};`">
 		<view v-if="!addressList || addressList.length < 1" class="no-address">
 			<view class="no-address-text">
 				还没有地址哦～
@@ -7,7 +7,7 @@
 			<up-button type="primary" text="添加地址" @click="createAddress"></up-button>
 		</view>
 		<view class="address-list">
-			<view class="address-list-item" v-for="(item,index) in addressList" :key="item.id">
+			<view class="address-list-item" v-for="(item,index) in addressList" :key="item.id" @click="()=>{onAddressSelect(item)}">
 				<view class="address-list-item-top">
 					<view class="address-list-last-name">
 						<text class="address-list-last-name-text">
@@ -74,7 +74,18 @@
 			this.mathLayoutParam();
 			this.onLoad();
 		},
+		props:{
+			onSelectAddress:{
+				type: Function
+			}
+		},
 		methods: {
+			onAddressSelect(_select){
+				if (!this.onSelectAddress) {
+					return;
+				}
+				this.onSelectAddress(_select);
+			},
 			del(id) {
 				this.dataId = id;
 				this.showDelConfirm = true;
@@ -107,9 +118,13 @@
 				})
 			},
 			mathLayoutParam() {
+				if (this.onSelectAddress) {
+					this.layoutContainerH = "100%";
+					return;
+				}
 				let systemInfo = uni.getSystemInfoSync();
 				let layoutContainerH = systemInfo.windowHeight - systemInfo.safeAreaInsets.bottom;
-				this.layoutContainerH = layoutContainerH;
+				this.layoutContainerH = layoutContainerH+"px";
 				// this.layoutContainerPaddingTop = layoutContainerPaddingTop;
 			},
 			onLoad() {
@@ -119,6 +134,15 @@
 				}).then(res => {
 					if (res.statusCode == 200) {
 						if (res.data.code == 0) {
+							let aList = res.data.result;
+							_.forEach(aList,(item)=>{
+								if (item.province == item.district) {
+									item.title = `${item.province}-${item.city}-${item.stress}-${item.address}`;
+									
+								} else {
+									item.title = `${item.province}-${item.district}-${item.city}-${item.stress}-${item.address}`;
+								}
+							})
 							this.addressList = res.data.result;
 						}
 					}
@@ -131,7 +155,6 @@
 				}).then(res => {
 					if (res.statusCode == 200) {
 						if (res.data.code == 0) {
-							debugger
 							let addressList = _.cloneDeep(this.addressList)
 							addressList[index].defaultAddress = !addressList[index].defaultAddress;
 							this.addressList = addressList;

@@ -1,13 +1,17 @@
 <template>
 	<view style="height:100%;">
 		<scroll-view style="height:100%;" scroll-y="true" @refresherrefresh="refreshAll" @scrolltolower="loadMoreData"
-			:refresher-enabled="refresherEnabled" :refresher-triggered="cloading" @refresherrestore="refreshAllOver" >
+			:refresher-enabled="refresherEnabled" :refresher-triggered="refresherState" >
 			<up-waterfall v-model="flowList" ref="common-commodity-list-waterfall" :add-time="50">
 				<template v-slot:left="{leftList}">
-					<commodityShowItem v-for="(item, index) in leftList" :key="index" :commodityInfo="item" ></commodityShowItem>
+					<view style="width:49vw">
+						<commodityShowItem v-for="(item, index) in leftList" :key="index" :commodityInfo="item" ></commodityShowItem>
+					</view>
 				</template>
 				<template v-slot:right="{rightList}">
-					<commodityShowItem v-for="(item, index) in rightList" :key="index" :commodityInfo="item" ></commodityShowItem>
+					<view style="width:49vw">
+						<commodityShowItem v-for="(item, index) in rightList" :key="index" :commodityInfo="item" ></commodityShowItem>
+					</view>
 				</template>
 			</up-waterfall>
 			<up-loadmore bg-color="rgb(240, 240, 240)" :status="loadStatus" @loadmore="loadData"></up-loadmore>
@@ -18,6 +22,7 @@
 <script>
 	import _ from "lodash";
 	import commodityShowItem from "./list-item.vue";
+	import fileApi from "@/libs/file-api.js";
 	export default {
 		components:{
 			commodityShowItem:commodityShowItem
@@ -42,11 +47,14 @@
 				currentPageIndex: 0,
 				currentPageSize: 10,
 				refresherEnabled: true,
+				loadMoreEnabled: true,
 				cloading: false,
+				refresherState: false,
 			}
 		},
 		methods:{
 			refreshAll(){
+				this.loadMoreEnabled = true;
 				this.cloading = true;
 				this.currentPageIndex = 0;
 				this.flowList = [];
@@ -57,7 +65,7 @@
 				this.loadData();
 			},
 			loadData(){
-				if (!this.refresherEnabled) {
+				if (!this.loadMoreEnabled) {
 					return;
 				}
 				this.currentPageIndex++;
@@ -77,9 +85,12 @@
 						let result = _data.result;
 						let newList = [];
 						newList = _.concat([],result.dataList);
+						_.forEach(newList,(item)=>{
+							item.coverFileUrl = fileApi.gerPreviewUrl(item.coverFileId);
+						});
 						this.flowList = _.concat(this.flowList,newList);
 						if (this.flowList.length >= result.total) {
-							this.refresherEnabled = false;
+							this.loadMoreEnabled = false;
 						}
 					}
 					if (this.cloading) {

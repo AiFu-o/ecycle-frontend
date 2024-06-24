@@ -1,6 +1,47 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+			"path": "pages/commodity/default-list",
+			"style": {
+				"navigationBarTitleText": "商品列表",
+				"navigationStyle": "custom",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/order/particular/index",
+			"style": {
+				"navigationBarTitleText": "订单详情",
+				"navigationStyle": "custom",
+				"enablePullDownRefresh": false
+			}
+		}, 
+		{
+			"path": "pages/order/index",
+			"style": {
+				"navigationBarTitleText": "订单",
+				"navigationStyle": "custom",
+				"enablePullDownRefresh": false
+			}
+		
+		}, 
+		{
+			"path": "pages/commodity/publish/index",
+			"style": {
+				"navigationBarTitleText": "发布商品",
+				"navigationStyle": "custom",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/commodity/particular/index",
+			"style": {
+				"navigationBarTitleText": "商品详情",
+				"navigationStyle": "custom",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
 		    "path" : "pages/mine/recycler-apply/recycler-apply",
 		    "style" :                                                                                    
 		    {
@@ -11,14 +52,6 @@
 			"path": "pages/search/index",
 			"style": {
 				"navigationBarTitleText": "搜索",
-				"navigationStyle": "custom",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-			"path": "pages/commodity/default-list",
-			"style": {
-				"navigationBarTitleText": "商品列表",
 				"navigationStyle": "custom",
 				"enablePullDownRefresh": false
 			}
@@ -35,14 +68,8 @@
 				"navigationBarTitleText": "发布",
 				"enablePullDownRefresh": false
 			}
-		}, {
-			"path": "pages/order/order",
-			"style": {
-				"navigationBarTitleText": "订单",
-				"enablePullDownRefresh": false
-			}
-
-		}, {
+		}, 
+		{
 			"path": "pages/message/message",
 			"style": {
 				"navigationBarTitleText": "消息",

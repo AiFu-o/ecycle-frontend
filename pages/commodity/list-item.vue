@@ -1,6 +1,9 @@
 <template>
-	<view class="commodity-item-container" :style="`height: ${layoutContainerH}px;`" @click="onCommodityItemClick">
-		<view class="content-container">{{commodityInfo.title}}</view>
+	<view class="commodity-item-container" :style="`min-height: ${layoutContainerH}px;`" @click="onCommodityItemClick">
+		<view class="content-container">
+			<!-- <img class="img-comp" :src="commodityInfo.coverFileUrl"> -->
+			
+		</view>
 	</view>
 </template>
 
@@ -22,7 +25,6 @@
 			}
 		},
 		mounted() {
-			this.layoutContainerH = 100 + (Math.round(Math.random()*10)-5)*8;
 		},
 		methods: {
 			onCommodityItemClick(){
@@ -46,6 +48,12 @@
 			height: 100%;
 			width: 100%;
 			background-color: red;
+			display: flex;
+			flex-direction: column;
+			// padding: ;
+			.img-comp{
+				min-height: 100rpx;
+			}
 		}
 	}
 </style>

@@ -7,14 +7,14 @@
 				首页
 			</view>
 		</view>
-		<view class="tab-bar-item" @click="toLink('/pages/order/order')"
+		<view class="tab-bar-item" @click="toLink('/pages/order/index')"
 			:class="{'current-tab-bar-item':currentPageName == 'order'}">
 			<i class="iconfont tab-bar-item-icon icon-order" />
 			<view class="tab-bar-item-title">
 				订单
 			</view>
 		</view>
-		<view class="tab-bar-item">
+		<view class="tab-bar-item" @click="toLink('/pages/commodity/publish/index')">
 			<view class="tab-bar-circle-item">
 				<i class="iconfont tab-bar-item-icon icon-publish" />
 			</view>
@@ -40,7 +40,7 @@
 	export default {
 		data() {
 			return {
-
+				loading: false,
 			}
 		},
 		props: {
@@ -48,6 +48,10 @@
 		},
 		methods: {
 			toLink(path) {
+				if (this.loading) {
+					return;
+				}
+				this.loading = true;
 				uni.navigateTo({
 					url: path
 				})

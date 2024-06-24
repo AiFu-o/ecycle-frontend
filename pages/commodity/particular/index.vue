@@ -12,7 +12,7 @@
 				<view :class="[currentCategory=='推荐'?'category-item-current':'category-item']">{{"推荐"}}<view class="catrgory-item-current-underline"></view></view>
 			</view>
 		</view>
-		<scroll-view :style="`height: 100%;`" scroll-y="true">
+		<scroll-view class="particular-scroll-container" scroll-y="true">
 			<view class="commodity-img-container">
 				<up-swiper
 					:list="commodityImgList"
@@ -51,12 +51,12 @@
 						</view>
 					</view>
 					<view class="seller-operation">
-						<view v-if="attentionState=='UN'" class="seller-button seller-button-un" @click="onAttentionConfirm">
+						<!-- <view v-if="attentionState=='UN'" class="seller-button seller-button-un" @click="onAttentionConfirm">
 							{{"+ 关注"}}
 						</view>
 						<view v-if="attentionState=='ED'" class="seller-button seller-button-ed" @click="onAttentionCancel">
 							{{"已关注"}}
-						</view>
+						</view> -->
 					</view>
 				</view>
 				<view class="seller-row-estimate">
@@ -70,26 +70,78 @@
 				</view>
 			</view>
 			<view class="commodity-detail-container">
-				产品详情待完善
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
+				<view>产品详情待完善</view>
 			</view>
 			<view class="commodity-tuijian-container"></view>
-			<view class="commodity-operation-container">
-				<view class="operation-left">
-					<view class="operation-l-item">
-						<i v-if="!isFavorite" class="unfavorite-icon iconfont icon-weishoucang" style="font-size: 30px;" @click="changeFavoriteState"></i>
-						<i v-if="isFavorite" class="favorited-icon iconfont icon-yishoucang" style="font-size: 30px;" @click="changeFavoriteState"></i>
-					</view>
-				</view>
-				<view class="operation-right">
-					<view class="operation-r-item">
-						<up-button v-if="commodityInfo.state=='ING'" ref="search-input-main" text="出价" color="#2db371" @click="onBidClick"></up-button>
-					</view>
-					<view class="operation-r-item">
-						<up-button v-if="commodityInfo.state=='ED'" ref="search-input-main" text="已售出" color="#2db371" @click="onBidClick"></up-button>
-					</view>
+		</scroll-view>
+		<view class="commodity-operation-container" :style="`bottom: ${bottomSafeAreaH}px;`">
+			<view class="operation-left">
+				<view class="operation-l-item">
+					<i v-if="!isFavorite" class="unfavorite-icon iconfont icon-weishoucang" style="font-size: 30px;" @click="changeFavoriteState"></i>
+					<i v-if="isFavorite" class="favorited-icon iconfont icon-yishoucang" style="font-size: 30px;" @click="changeFavoriteState"></i>
 				</view>
 			</view>
-		</scroll-view>
+			<view class="operation-right">
+				<view class="operation-r-item">
+					<up-button v-if="commodityInfo.state=='ING'" ref="search-input-main" text="出价" color="#2db371" @click="onBidClick"></up-button>
+				</view>
+				<view class="operation-r-item">
+					<up-button v-if="commodityInfo.state=='ED'" ref="search-input-main" text="已售出" color="#2db371" @click="onBidClick"></up-button>
+				</view>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -106,6 +158,7 @@
 				topBarAbsoluteTopH: 0,
 				topBarBackRowH: 40,
 				topBarCategoryOpacity: 0,
+				bottomSafeAreaH: 0,
 				cImgSwiperH: 430,
 				
 				img_currentNum: 0,
@@ -157,6 +210,7 @@
 				this.layoutContainerH = layoutContainerH;
 				this.listContainerH = layoutContainerH;// - 30;//30是底部出价等操作栏的高度
 				this.topBarAbsoluteTopH = systemInfo.statusBarHeight;
+				this.bottomSafeAreaH = systemInfo.safeAreaInsets.bottom;
 			},
 			getCommodityDetail(){
 				//TODO 查询商品详情
@@ -232,6 +286,9 @@
 				}
 			}
 		}
+	}
+	.particular-scroll-container{
+		height: calc(100% - 100rpx);
 	}
 	.commodity-img-container{
 		height: 100vw;
@@ -341,7 +398,6 @@
 	.commodity-tuijian-container{}
 	.commodity-operation-container{
 		position: absolute;
-		bottom: 0px;
 		height: 100rpx;
 		width: 100%;
 		// background-color: red;
@@ -365,7 +421,10 @@
 		.operation-right{
 			width: 40vw;
 			.operation-r-item{
-				
+				height: 100rpx;
+				.u-button--square{
+					height: 100rpx;
+				}
 			}
 		}
 	}
