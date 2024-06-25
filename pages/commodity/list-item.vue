@@ -1,8 +1,15 @@
 <template>
 	<view class="commodity-item-container" :style="`min-height: ${layoutContainerH}px;`" @click="onCommodityItemClick">
 		<view class="content-container">
-			<!-- <img class="img-comp" :src="commodityInfo.coverFileUrl"> -->
-			
+			<view class="img-location">
+				<img class="img-comp" :src="commodityInfo.coverFileUrl">
+			</view>
+			<view class="name-view">
+				{{commodityInfo.name}}
+			</view>
+			<view class="info-view">
+				{{commodityInfo.info}}
+			</view>
 		</view>
 	</view>
 </template>
@@ -47,12 +54,29 @@
 		.content-container{
 			height: 100%;
 			width: 100%;
-			background-color: red;
+			// background-color: red;
 			display: flex;
 			flex-direction: column;
 			// padding: ;
-			.img-comp{
+			.img-location{
 				min-height: 100rpx;
+				width: 100%;
+				.img-comp{
+					width: 100%;
+				}
+			}
+			.name-view{
+				padding: 0 10rpx;
+				line-height: 40rpx;
+				font-weight: bold;
+			}
+			.info-view{
+				padding: 0 10rpx;
+				line-height: 30rpx;
+				font-size: 24rpx;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
 			}
 		}
 	}

@@ -1,15 +1,15 @@
 <template>
 	<view style="height:100%;">
-		<scroll-view style="height:100%;" scroll-y="true" @refresherrefresh="refreshAll" @scrolltolower="loadMoreData"
+		<scroll-view style="height:100%;" :enable-flex="true" scroll-y="true" @refresherrefresh="refreshAll" @scrolltolower="loadMoreData"
 			:refresher-enabled="refresherEnabled" :refresher-triggered="refresherState" >
 			<up-waterfall v-model="flowList" ref="common-commodity-list-waterfall" :add-time="50">
 				<template v-slot:left="{leftList}">
-					<view style="width:49vw">
+					<view style="width:calc(48vw - 20rpx);">
 						<commodityShowItem v-for="(item, index) in leftList" :key="index" :commodityInfo="item" ></commodityShowItem>
 					</view>
 				</template>
 				<template v-slot:right="{rightList}">
-					<view style="width:49vw">
+					<view style="width:calc(48vw - 20rpx);">
 						<commodityShowItem v-for="(item, index) in rightList" :key="index" :commodityInfo="item" ></commodityShowItem>
 					</view>
 				</template>
@@ -70,6 +70,7 @@
 				}
 				this.currentPageIndex++;
 				let queryConfig = {
+					"statusList": ["SELLING"],
 					"isPage": true,
 					"pageIndex": this.currentPageIndex,
 					"pageSize": this.currentPageSize,
