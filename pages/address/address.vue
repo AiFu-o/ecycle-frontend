@@ -7,7 +7,8 @@
 			<up-button type="primary" text="添加地址" @click="createAddress"></up-button>
 		</view>
 		<view class="address-list">
-			<view class="address-list-item" v-for="(item,index) in addressList" :key="item.id" @click="()=>{onAddressSelect(item)}">
+			<view class="address-list-item" v-for="(item,index) in addressList" :key="item.id"
+				@click="()=>{onAddressSelect(item)}">
 				<view class="address-list-item-top">
 					<view class="address-list-last-name">
 						<text class="address-list-last-name-text">
@@ -63,7 +64,7 @@
 	export default {
 		data() {
 			return {
-				manageAddress:false,
+				manageAddress: false,
 				addressList: [],
 				layoutContainerH: 0,
 				showDelConfirm: false,
@@ -74,13 +75,13 @@
 			this.mathLayoutParam();
 			this.onLoad();
 		},
-		props:{
-			onSelectAddress:{
+		props: {
+			onSelectAddress: {
 				type: Function
 			}
 		},
 		methods: {
-			onAddressSelect(_select){
+			onAddressSelect(_select) {
 				if (!this.onSelectAddress) {
 					return;
 				}
@@ -124,7 +125,7 @@
 				}
 				let systemInfo = uni.getSystemInfoSync();
 				let layoutContainerH = systemInfo.windowHeight - systemInfo.safeAreaInsets.bottom;
-				this.layoutContainerH = layoutContainerH+"px";
+				this.layoutContainerH = layoutContainerH + "px";
 				// this.layoutContainerPaddingTop = layoutContainerPaddingTop;
 			},
 			onLoad() {
@@ -135,12 +136,14 @@
 					if (res.statusCode == 200) {
 						if (res.data.code == 0) {
 							let aList = res.data.result;
-							_.forEach(aList,(item)=>{
+							_.forEach(aList, (item) => {
 								if (item.province == item.district) {
-									item.title = `${item.province}-${item.city}-${item.stress}-${item.address}`;
-									
+									item.title =
+										`${item.province}-${item.city}-${item.stress}-${item.address}`;
+
 								} else {
-									item.title = `${item.province}-${item.district}-${item.city}-${item.stress}-${item.address}`;
+									item.title =
+										`${item.province}-${item.district}-${item.city}-${item.stress}-${item.address}`;
 								}
 							})
 							this.addressList = res.data.result;
@@ -254,8 +257,8 @@
 					font-weight: 550;
 					margin-right: 12rpx;
 				}
-				
-				.default-address{
+
+				.default-address {
 					margin-left: 12rpx;
 					color: #2db371;
 					border: 1px solid #2db371;

@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 4540582 */
-  src: url('iconfont.woff2?t=1717241890156') format('woff2'),
-       url('iconfont.woff?t=1717241890156') format('woff'),
-       url('iconfont.ttf?t=1717241890156') format('truetype');
+  src: url('iconfont.woff2?t=1719477352902') format('woff2'),
+       url('iconfont.woff?t=1719477352902') format('woff'),
+       url('iconfont.ttf?t=1719477352902') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,38 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-yishouchu:before {
+  content: "\e6dc";
+}
+
+.icon-menkadi:before {
+  content: "\e613";
+}
+
+.icon-jingjiajz:before {
+  content: "\e657";
+}
+
+.icon-linghuo:before {
+  content: "\e602";
+}
+
+.icon-jiazhigao:before {
+  content: "\e612";
+}
+
+.icon-ziyou:before {
+  content: "\e6ec";
+}
+
+.icon-shourugao:before {
+  content: "\e60c";
+}
+
+.icon-tiyanhao:before {
+  content: "\e66f";
 }
 
 .icon-youjiantou:before {
@@ -95,10 +127,6 @@
 
 .icon-chushouzhong:before {
   content: "\e670";
-}
-
-.icon-Sold-yishouchu:before {
-  content: "\e617";
 }
 
 .icon-order:before {
