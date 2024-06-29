@@ -97,8 +97,8 @@
 				categoryList2: [],//前面的用于展示，这个用于存储数据，懒得取
 				defaultAddressFinish: true,
 				
-				commodityName: "测试啊",
-				commodityTextDescription: "测试啊啊",
+				commodityName: "",
+				commodityTextDescription: "",
 				commodityCategory: {},
 				commodityAddress: {},
 				belongId: uuid.create().toString(),
@@ -520,6 +520,7 @@
 			.einfo-value{
 				flex: 4;
 				text-align: end;
+				overflow: hidden;
 			}
 			.select-icon{
 				display: inline-block;

@@ -13,7 +13,7 @@
 			</view>
 		</view>
 		<scroll-view class="particular-scroll-container" scroll-y="true">
-			<view class="commodity-img-container">
+			<view class="commodity-img-container" v-if="commodityImgList.length > 0">
 				<up-swiper
 					:list="commodityImgList"
 					@change="e => img_currentNum = e.current"
@@ -180,10 +180,6 @@
 				commodityInfoLoading: false,
 				commodityId: "",
 				commodityImgList:[
-					{
-						url:"/static/imgdemo/a1.jpeg",
-						type: 'image'
-					},
 				],
 				commodityInfo: {
 					title: "",
