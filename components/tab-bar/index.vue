@@ -52,7 +52,7 @@
 					return;
 				}
 				this.loading = true;
-				uni.navigateTo({
+				uni.reLaunch({
 					url: path
 				})
 			}
