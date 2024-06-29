@@ -31,7 +31,7 @@
 			</view>
 			<view class="commodity-baseinfo-container">
 				<view class="baseinfo-title">
-					{{commodityInfo.title}}
+					{{commodityInfo.name}}
 				</view>
 				<view class="baseinfo-location">
 					<i class="location-icon iconfont icon-dingwei"></i>
@@ -40,13 +40,14 @@
 				<view class="baseinfo-label"></view>
 			</view>
 			<view class="commodity-seller-container">
+				<view class="seller-layoutlable">卖家</view>
 				<view class="seller-row-base">
-					<view v-if="sellerInfo.profileImg" class="seller-img">
-						
+					<view class="seller-img">
+						<i v-if="!sellerInfo.profileImg" class="default-user-profile iconfont icon-morentouxiang"></i>
 					</view>
 					<view class="seller-info">
-						<view class="seller-name">{{sellerInfo.title}}</view>
-						<view class="seller-simple-info">
+						<view class="seller-name">{{sellerInfo.name}}</view>
+						<view class="seller-simple-info" v-if="false">
 							{{sellerInfo.level+"级" + " | " + sellerInfo.concernsNumber + "关注"}}
 						</view>
 					</view>
@@ -59,7 +60,7 @@
 						</view> -->
 					</view>
 				</view>
-				<view class="seller-row-estimate">
+				<view class="seller-row-estimate" v-if="false">
 					<view class="row-quality">
 						<text class="row-title">质量评价：</text><text class="row-value">{{sellerInfo.sellQuality}}</text>
 					</view>
@@ -70,59 +71,27 @@
 				</view>
 			</view>
 			<view class="commodity-detail-container">
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
-				<view>产品详情待完善</view>
+				{{commodityInfo.info}}
+			</view>
+			<view class="commodity-bidding-container">
+				<view class="bidding-title">出价记录</view>
+				<template v-if="biddingList.length > 0">
+					<view style="margin-bottom: 10rpx;width: 100%;">
+						<view style="width: 13vw;text-align: end;display: inline-block;">{{"排名"}}</view>
+						<view style="margin-left:100rpx;display: inline-block;">{{"出价金额"}}</view>
+					</view>
+					<view v-for="(item,index) in biddingList" :key="'bidding-row-'+index" :class="['bidding-row',item.isMine?'bidding-row-ismine':'']">
+						<view class="index-number" :style="{color:index>2?'#808080':biddingIndexNumberColor[index]}">{{index+1}}</view>
+						<view class="bidding-number">{{item.commodityAmount}}</view>
+						<view class="mybidding-check">{{item.isMine?"我的出价":""}}</view>
+						<!-- <view class="mybidding-check">{{checkBiddingBelong(item)}}</view> -->
+					</view>
+				</template>
+				<template v-else>
+					<view class="bidding-none">
+						{{"暂无出价"}}
+					</view>
+				</template>
 			</view>
 			<view class="commodity-tuijian-container"></view>
 		</scroll-view>
@@ -134,19 +103,50 @@
 				</view>
 			</view>
 			<view class="operation-right">
-				<view class="operation-r-item">
-					<up-button v-if="commodityInfo.state=='ING'" ref="search-input-main" text="出价" color="#2db371" @click="onBidClick"></up-button>
+				<view class="operation-r-item" v-if="commodityInfo.creatorId == currentUserId">
+					<up-button ref="search-input-main" text="确认出价" color="#2db371" @click="toConfirmBiddingToOrder"></up-button>
 				</view>
-				<view class="operation-r-item">
-					<up-button v-if="commodityInfo.state=='ED'" ref="search-input-main" text="已售出" color="#2db371" @click="onBidClick"></up-button>
+				<view v-else-if="commodityInfo.status == 'SELLING'" class="operation-r-item">
+					<up-button ref="search-input-main" text="出价" color="#2db371" @click="onBidClick"></up-button>
+				</view>
+				<view v-else-if="commodityInfo.status == 'SOLD'" class="operation-r-item">
+					<up-button ref="search-input-main" text="已售出" color="#b2acb0" @click="()=>{}"></up-button>
+				</view>
+				<view v-else-if="commodityInfo.status == 'OFF_SHELF'" class="operation-r-item">
+					<up-button ref="search-input-main" text="已下架" color="#b2acb0" @click="()=>{}"></up-button>
 				</view>
 			</view>
 		</view>
+		<up-modal :show="isShowConfirmBiddingModal" title="确认出价" :closeOnClickOverlay="true" :showCancelButton="true" :holdKeyboard="true" confirmColor="#2db371" @confirm="onConfirmBiddingConfirm" @cancel="onConfirmBiddingCancel" @close="onConfirmBiddingOverlayClose">
+			<view class="confirm-bidding-modal-content-container">
+				<view class="topbar-container">
+					{{"已选出价金额：" + (selectedBidding.id?selectedBidding.commodityAmount:"无")}}
+				</view>
+				<scroll-view class=".bidding-list-container" scroll-y="true">
+					<view v-for="(item,index) in confirmBiddingList" :class="['bidding-row',(selectedBidding.id==item.id?'selected-bidding-row':'')]" :key="'confirm-bidding-'+index" @click="()=>{onConfirmBiddingSelectBidding(item)}">
+						<view class="index-number" :style="{color:index>2?'#808080':biddingIndexNumberColor[index]}">{{index+1}}</view>
+						<view class="bidding-number">{{item.commodityAmount}}</view>
+					</view>
+				</scroll-view>
+			</view>
+		</up-modal>
+		<up-modal :show="isShowBiddingModal" title="出价" :closeOnClickOverlay="true" :showCancelButton="true" :holdKeyboard="true" confirmColor="#2db371" @confirm="onBiddingConfirm" @cancel="onBiddingCancel" @close="onBiddingOverlayClose">
+			<view class="bidding-modal-content-container">
+				<view class="now-row">{{"当前最高:"+(mostBidding > 0?(mostBidding+"元"):"无")}}</view>
+				<view class="mine-row">{{"我的出价:"+(mineBidding > 0?(mineBidding+"元"):"无")}}</view>
+				<view class="new-row">
+					{{"新的出价"}}
+					<up-input v-model="newBidding" placeholder="出价金额" :clearable="true" type="number">
+					</up-input>
+				</view>
+			</view>
+		</up-modal>
 	</view>
 </template>
 
 <script>
 	import _ from "lodash";
+	import fileApi from "@/libs/file-api.js";
 	export default {
 		components: {
 		},
@@ -163,24 +163,32 @@
 				
 				img_currentNum: 0,
 				
+				isShowConfirmBiddingModal: false,
+				confirmBiddingList: [],
+				selectedBidding: {},
+				
+				biddingIndexNumberColor: ["#FF0000","#FF3300","#FF6600"],
+				isShowBiddingModal: false,
+				mostBidding: 0,
+				mineBidding: 0,
+				newBidding: 0,
+				
 				currentCategory: "商品",//商品、详情、推荐
 				
+				commodityInfoLoading: false,
 				commodityId: "",
 				commodityImgList:[
 					{
 						url:"/static/imgdemo/a1.jpeg",
 						type: 'image'
 					},
-					{
-						url:"/static/imgdemo/a2.jpeg",
-						type: 'image'
-					},
 				],
 				commodityInfo: {
-					title: "商品名称",
-					location: "北京市大兴区西环中路6号",
-					state: "ING",//ED
+					title: "",
+					location: "",
+					state: "",
 				},
+				biddingList: [],
 				sellerInfo:{
 					title: "焦先生",
 					transactionNumber: "5000+",
@@ -193,16 +201,113 @@
 				attentionState: "ED",//UN
 				commodityParticular: {},
 				isFavorite: false,
+				favoriteId: "",
+				currentUserId: "",
 			}
 		},
 		onLoad: function (_option) {
+			let userInfo = uni.getStorageSync("userInfo");
+			this.currentUserId = userInfo.userId;
 			this.commodityId = _option.cid;
 			this.getCommodityDetail();
+			this.getBiddingList();
 		},
 		mounted() {
 			this.mathLayoutParam();
 		},
 		methods: {
+			toConfirmBiddingToOrder(){
+				let queryConfig = {
+					"isPage": false,
+					"pageIndex": 1,
+					"pageSize": 10000,
+					"input": ""
+				};
+				uni.request({
+					url: `/commodity-api/bidding/queryAll/${this.commodityId}`,
+					method: "POST",
+					data:queryConfig
+				}).then((res)=>{
+					let _data = res.data;
+					if (_data.code == 0) {
+						let result = _data.result.dataList;
+						this.confirmBiddingList = result;
+						this.selectedBidding = {};
+						this.isShowConfirmBiddingModal = true;
+					}
+				},(err)=>{
+					console.log("查询出价记录报错",e);
+				})
+			},
+			onConfirmBiddingConfirm(){
+				if (!this.selectedBidding.id){
+					this.isShowConfirmBiddingModal = false;
+					return;
+				}
+				uni.request({
+					url: `/commodity-api/bidding/sell/${this.selectedBidding.id}`,
+					method: "PUT",
+				}).then((res)=>{
+					let _data = res.data;
+					if (_data.code == 0) {
+						this.getCommodityDetail();
+						this.isShowConfirmBiddingModal = false;
+					}
+				},(err)=>{
+					console.log("出价报错",e);
+				})
+			},
+			onConfirmBiddingCancel(){
+				this.isShowConfirmBiddingModal = false;
+			},
+			onConfirmBiddingOverlayClose(){
+				this.isShowConfirmBiddingModal = false;
+			},
+			onConfirmBiddingSelectBidding(_bidding){
+				this.selectedBidding = _.cloneDeep(_bidding);
+			},
+			onBidClick(){
+				let mostBidding = 0;
+				let mineBidding = 0;
+				_.forEach(this.biddingList,(item)=>{
+					if (item.isMine) {
+						mineBidding = item.commodityAmount;
+					}
+					mostBidding = mostBidding<item.commodityAmount?item.commodityAmount:mostBidding;
+				});
+				this.mostBidding = mostBidding;
+				this.mineBidding = mineBidding;
+				
+				this.isShowBiddingModal = true;
+				
+			},
+			onBiddingConfirm(){//DO BIDDING
+				uni.request({
+					url: `/commodity-api/bidding/create`,
+					method: "POST",
+					data:{
+						commodityId: this.commodityId,
+						commodityAmount: this.newBidding
+					}
+				}).then((res)=>{
+					let _data = res.data;
+					if (_data.code == 0) {
+						this.isShowBiddingModal = false;
+						this.getBiddingList();
+					}
+				},(err)=>{
+					console.log("出价报错",e);
+				})
+			},
+			onBiddingCancel(){
+				this.isShowBiddingModal = false;
+			},
+			onBiddingOverlayClose(){
+				this.isShowBiddingModal = false;
+			},
+			checkBiddingBelong(){
+				return "";
+			},
 			mathLayoutParam(){
 				let systemInfo = uni.getSystemInfoSync();
 				let layoutContainerPaddingTop = systemInfo.statusBarHeight;
@@ -212,15 +317,133 @@
 				this.topBarAbsoluteTopH = systemInfo.statusBarHeight;
 				this.bottomSafeAreaH = systemInfo.safeAreaInsets.bottom;
 			},
+			getBiddingList(){
+				let queryConfig = {
+					"isPage": true,
+					"pageIndex": 1,
+					"pageSize": 10,
+					"input": ""
+				};
+				uni.request({
+					url: `/commodity-api/bidding/queryAll/${this.commodityId}`,
+					method: "POST",
+					data:queryConfig
+				}).then((res)=>{
+					let _data = res.data;
+					if (_data.code == 0) {
+						let result = _data.result.dataList;
+						_.forEach(result,(item)=>{
+							item.isMine = (item.creatorId == this.currentUserId);
+						})
+						this.biddingList = result;
+					}
+				},(err)=>{
+					console.log("查询出价记录报错",e);
+				})
+			},
 			getCommodityDetail(){
-				//TODO 查询商品详情
+				if (this.commodityInfoLoading) {
+					return;
+				}
+				if (!this.commodityId) {
+					return;
+				}
+				this.commodityInfoLoading = true;
+				uni.request({
+					url: `/commodity-api/commodity/load-info/${this.commodityId}`,
+					method: "GET",
+				}).then((res)=>{
+					let _data = res.data;
+					if (_data.code == 0) {
+						let result = _data.result;
+						let location = "";
+						if (result?.address?.id) {
+							let province = result.address?.province || "";
+							let district = result.address?.district || "";
+							let city = result.address?.city || "";
+							let address = result.address?.address || "";
+							let list = _.uniq([province,district,city,address]);
+							location = _.join(list,"-");
+						}
+						result.location = location;
+						this.commodityInfo = result;
+						this.sellerInfo = {
+							name: result.creatorName
+						};
+						if (this.commodityInfo.favoriteId && this.commodityInfo.favoriteId.length > 0) {
+							this.isFavorite = true;
+							this.favoriteId = "" + this.commodityInfo.favoriteId;
+						} else {
+							this.isFavorite = false;
+							this.favoriteId = "";
+						}
+					}
+					// if (this.commodityInfoLoading) {
+					// 	this.commodityInfoLoading = false;
+					// }
+					if(!this.commodityInfo.belongId){
+						return new Promise((resolve)=>{resolve({data:{}})});
+					}
+					return uni.request({
+						url: `/storage-api/fileInfos?belongId=${this.commodityInfo.belongId}`,
+						method: "GET",
+					});
+				},(err)=>{
+					if (this.commodityInfoLoading) {
+						this.commodityInfoLoading = false;
+					}
+				}).then((res2)=>{
+					let _data = res2.data;
+					if (_data.code == 0) {
+						let result = _data.result;
+						let listResult = [];
+						_.forEach(result,(item)=>{
+							listResult.push({
+								url: fileApi.gerPreviewUrl(item.id),
+								type: "image"
+							});
+						});
+						this.commodityImgList = listResult;
+					}
+					if (this.commodityInfoLoading) {
+						this.commodityInfoLoading = false;
+					}
+				},(err)=>{
+					if (this.commodityInfoLoading) {
+						this.commodityInfoLoading = false;
+					}
+				});
 			},
 			toBackPage(){
 				uni.navigateBack();
 			},
 			changeFavoriteState(){
-				this.isFavorite = !this.isFavorite;
-				//TODO changeFavoriteState
+				if (this.isFavorite) {
+					uni.request({
+						url: `/commodity-api/favorite/cancel/{${this.commodityId}`,
+						method: "PUT",
+						data:queryConfig
+					}).then((res)=>{
+						let _data = res.data;
+						if (_data.code == 0) {
+							this.isFavorite = !this.isFavorite;
+						}
+					},(err)=>{
+						console.log("取消收藏失败",e);
+					})
+				} else {
+					uni.request({
+						url: `/commodity-api/favorite/save/${this.commodityId}`,
+						method: "POST",
+					}).then((res)=>{
+						let _data = res.data;
+						if (_data.code == 0) {
+							this.isFavorite = !this.isFavorite;
+						}
+					},(err)=>{
+						console.log("收藏失败",e);
+					})
+				}
 			},
 			onAttentionConfirm(){
 				this.attentionState = "ED";
@@ -319,7 +542,7 @@
 	}
 	.commodity-seller-container{
 		width: 100vw;
-		padding: 40rpx 20rpx 20rpx 20rpx;
+		padding: 20rpx 20rpx 20rpx 20rpx;
 		background-color: #fff;
 		margin-top: 20rpx;
 		.seller-row-base{
@@ -331,7 +554,18 @@
 			.seller-img{
 				width: 120rpx;
 				height: 120rpx;
-				background-color: red;
+				// background-color: red;
+				.default-user-profile{
+					width: 120rpx;
+					height: 120rpx;
+					border-radius: 100%;
+					// margin-left: 40rpx;
+					border: 4rpx solid #e2e2e2;
+					font-size: 70rpx;
+					text-align: center;
+					line-height: 100rpx;
+					color: #8a8a8a;
+				}
 			}
 			.seller-info{
 				display: flex;
@@ -389,11 +623,59 @@
 				color: #000;
 			}
 		}
+		.seller-layoutlable{
+			position: absolute;
+			right: 10rpx;
+			height: 10rpx;
+			color: #2db371;
+		}
 	}
 	.commodity-detail-container{
+		// text-indent: 2em;
+		padding: 30rpx;
 		background-color: #fff;
 		margin-top: 20rpx;
 		min-height: 300rpx;
+		white-space: pre-wrap; /* 保留换行符，允许正常的换行行为 */
+		word-wrap: break-word; /* 在长单词或URL地址内部进行换行 */
+	}
+	.commodity-bidding-container{
+		width: calc(100% - 100rpx);
+		padding: 20rpx 50rpx;
+		background-color: #fff;
+		margin-top: 20rpx;
+		display: flex;
+		flex-direction: column;
+		.bidding-title {
+			font-weight: bold;
+			margin-bottom: 20rpx;
+		}
+		.bidding-row{
+			display: flex;
+			margin-bottom: 10rpx;
+			width: 100%;
+			.index-number{
+				width: 10vw;
+				text-align: end;
+			}
+			.mybidding-check{
+				// color: #ffffff;
+				width: 30vw;
+				text-align: start;
+			}
+			.bidding-number{
+				flex: 1;
+				text-align: center;
+			}
+		}
+		.bidding-row-ismine{
+			background-color: #ececec;
+			border-radius: 10rpx;
+			box-shadow: 0 0 14rpx -6rpx #000;
+		}
+		.bidding-none{
+			
+		}
 	}
 	.commodity-tuijian-container{}
 	.commodity-operation-container{
@@ -425,6 +707,71 @@
 				.u-button--square{
 					height: 100rpx;
 				}
+			}
+		}
+	}
+	.bidding-modal-content-container{
+		display: flex;
+		.topbar-container {
+			height: 50rpx;
+		}
+		.bidding-list-container{
+			flex: 1;
+			overflow: auto;
+			.bidding-row{
+				display: flex;
+				margin-bottom: 10rpx;
+				width: 100%;
+				// padding-right: 30vw;
+				.index-number{
+					width: 10vw;
+					text-align: end;
+				}
+				.bidding-number{
+					flex: 1;
+					text-align: center;
+				}
+				.action-button{
+					width: 30vw;
+					text-align: cente;
+				}
+			}
+			.selected-bidding-row{
+				background-color: #ececec;
+				border-radius: 10rpx;
+				box-shadow: 0 0 14rpx -6rpx #000;
+			}
+		}
+	}
+	.confirm-bidding-modal-content-container{
+		.topbar-container{
+			
+		}
+		.bidding-list-container{
+			flex: 1;
+			overflow: auto;
+			.bidding-row{
+				display: flex;
+				margin-bottom: 10rpx;
+				width: 100%;
+				// padding-right: 30vw;
+				.index-number{
+					width: 10vw;
+					text-align: end;
+				}
+				.bidding-number{
+					flex: 1;
+					text-align: center;
+				}
+				.action-button{
+					width: 30vw;
+					text-align: cente;
+				}
+			}
+			.selected-bidding-row{
+				background-color: #ececec;
+				border-radius: 10rpx;
+				box-shadow: 0 0 14rpx -6rpx #000;
 			}
 		}
 	}

@@ -37,16 +37,16 @@
 			let userInfo = uni.getStorageSync("userInfo");
 			//TODO 判断当前登录人类型
 			let newTabList = [];
-			// if (userInfo.roles.indexOf("admin") >= 0) {
-			// 	newTabList = _.concat(this.defaultTabList_mai,this.defaultTabList_hui);
-			// } else {
-			// 	if (userInfo.roles.indexOf("normalUser") >= 0) {
-			// 		newTabList = _.concat(newTabList,this.defaultTabList_mai);
-			// 	}
-			// 	if (userInfo.roles.indexOf("provider") >= 0) {//这是回收商
+			if (userInfo.roles.indexOf("admin") >= 0) {
+				newTabList = _.concat(this.defaultTabList_mai,this.defaultTabList_hui);
+			} else {
+				if (userInfo.roles.indexOf("normalUser") >= 0) {
+					newTabList = _.concat(newTabList,this.defaultTabList_mai);
+				}
+				if (userInfo.roles.indexOf("provider") >= 0) {//这是回收商
 					newTabList = _.concat(newTabList,this.defaultTabList_hui);
-			// 	}				
-			// }
+				}				
+			}
 			this.tabList = newTabList;
 			this.currentCategory = this.tabList[0].key;
 		},

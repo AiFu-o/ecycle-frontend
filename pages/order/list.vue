@@ -212,10 +212,9 @@
 					if (_data.code == 0) {
 						let result = _data.result;
 						let newList = [];
-						newList = _.concat([{id:"asd",status:"PAYMENT_ERROR",billCode:"SDAS1231542131",coverFileUrl:"asd",commodityName:"萨达撒",commodityInfo:"阿斯达撒多撒",commodityAmount:100.34}],result.dataList);
-						// _.forEach(newList,(item)=>{
-						// 	item.coverFileUrl = fileApi.gerPreviewUrl(item.coverFileId);
-						// });
+						_.forEach(newList,(item)=>{
+							item.coverFileUrl = fileApi.gerPreviewUrl(item.coverFileId);
+						});
 						this.flowList = _.concat(this.flowList,newList);
 						if (this.flowList.length >= result.total) {
 							this.loadMoreEnable = false;
@@ -246,10 +245,9 @@
 					if (_data.code == 0) {
 						let result = _data.result;
 						let newList = [];
-						newList = _.concat([{id:"asd",status:"PENDING_VISIT",billCode:"SDAS1231542131",coverFileUrl:"asd",commodityName:"萨达撒",commodityInfo:"阿斯达撒多撒",commodityAmount:100.34}],result.dataList);
-						// _.forEach(newList,(item)=>{
-						// 	item.coverFileUrl = fileApi.gerPreviewUrl(item.coverFileId);
-						// });
+						_.forEach(newList,(item)=>{
+							item.coverFileUrl = fileApi.gerPreviewUrl(item.coverFileId);
+						});
 						this.flowList = _.concat(this.flowList,newList);
 						if (this.flowList.length >= result.total) {
 							this.loadMoreEnable = false;
@@ -280,10 +278,9 @@
 					if (_data.code == 0) {
 						let result = _data.result;
 						let newList = [];
-						newList = _.concat([{id:"asd",status:"COMPLETED",billCode:"SDAS1231542131",coverFileUrl:"asd",commodityName:"萨达撒",commodityInfo:"阿斯达撒多撒",commodityAmount:100.34,mostCommodityAmount:100.34,createTime:"2024-06-28 12:12:12"}],result.dataList);
-						// _.forEach(newList,(item)=>{
-						// 	item.coverFileUrl = fileApi.gerPreviewUrl(item.coverFileId);
-						// });
+						_.forEach(newList,(item)=>{
+							item.coverFileUrl = fileApi.gerPreviewUrl(item.coverFileId);
+						});
 						this.flowList = _.concat(this.flowList,newList);
 						if (this.flowList.length >= result.total) {
 							this.loadMoreEnable = false;
@@ -314,10 +311,9 @@
 					if (_data.code == 0) {
 						let result = _data.result;
 						let newList = [];
-						newList = _.concat([{id:"asd",status:"BIDDING",billCode:"SDAS1231542131",coverFileUrl:"asd",commodityName:"萨达撒",commodityInfo:"阿斯达撒多撒",commodityAmount:100.34,mostCommodityAmount:100.34,createTime:"2024-06-28 12:12:12"}],result.dataList);
-						// _.forEach(newList,(item)=>{
-						// 	item.coverFileUrl = fileApi.gerPreviewUrl(item.coverFileId);
-						// });
+						_.forEach(newList,(item)=>{
+							item.coverFileUrl = fileApi.gerPreviewUrl(item.coverFileId);
+						});
 						this.flowList = _.concat(this.flowList,newList);
 						if (this.flowList.length >= result.total) {
 							this.loadMoreEnable = false;

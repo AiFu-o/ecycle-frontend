@@ -5,7 +5,7 @@
 			<view class="title-layout">订单详情</view>
 		</view>
 		<scroll-view class="particular-scroll-container" :style="`height: ${listContainerH}px;`" scroll-y="true">
-			
+			<view></view>
 		</scroll-view>
 	</view>
 </template>
@@ -20,14 +20,21 @@
 				layoutContainerH: 0,
 				layoutContainerPaddingTop: 0,
 				listContainerH: 0,
+				
+				orderId: "",
 			}
 		},
-		onLoad() {
+		onLoad: function (_option) {
+			this.orderId = _option.cid;
+			this.loadOrderData();
 		},
 		mounted() {
 			this.mathLayoutParam();
 		},
 		methods: {
+			loadOrderData(){
+				
+			},
 			toBackPage(){
 				uni.navigateBack();
 			},

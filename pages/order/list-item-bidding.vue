@@ -130,6 +130,7 @@
 				.img-container{
 					width: 150rpx;
 					position: relative;
+					margin-right: 20rpx;
 					.img-comp{
 						width: 100%;
 						height: 100%;
