@@ -11,7 +11,6 @@ import './uni.promisify.adaptor'
 // console.log(themeAgency);
 Vue.config.productionTip = false
 App.mpType = 'app'
-debugger;
 const app = new Vue({
 	...App
 })

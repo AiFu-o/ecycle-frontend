@@ -116,6 +116,8 @@
 					.info-text-row{
 						flex: 1;
 						font-size: 28rpx;
+						max-height: 80rpx;
+						overflow: hidden;
 					}
 					.sub-info-row{
 						color: #828282;

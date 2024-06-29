@@ -210,10 +210,12 @@
 				}).then((res)=>{
 					let _data = res.data;
 					if (_data.code == 0) {
-						let result = _data.result;
-						let newList = [];
+						let result = _data.result.dataList;
+						let newList = result;
 						_.forEach(newList,(item)=>{
-							item.coverFileUrl = fileApi.gerPreviewUrl(item.coverFileId);
+							if (item.coverId) {
+								item.coverFileUrl = fileApi.gerPreviewUrl(item.coverId);
+							}
 						});
 						this.flowList = _.concat(this.flowList,newList);
 						if (this.flowList.length >= result.total) {
@@ -243,10 +245,12 @@
 				}).then((res)=>{
 					let _data = res.data;
 					if (_data.code == 0) {
-						let result = _data.result;
-						let newList = [];
+						let result = _data.result.dataList;
+						let newList = result;
 						_.forEach(newList,(item)=>{
-							item.coverFileUrl = fileApi.gerPreviewUrl(item.coverFileId);
+							if (item.coverId) {
+								item.coverFileUrl = fileApi.gerPreviewUrl(item.coverId);
+							}
 						});
 						this.flowList = _.concat(this.flowList,newList);
 						if (this.flowList.length >= result.total) {
@@ -276,10 +280,12 @@
 				}).then((res)=>{
 					let _data = res.data;
 					if (_data.code == 0) {
-						let result = _data.result;
-						let newList = [];
+						let result = _data.result.dataList;
+						let newList = result;
 						_.forEach(newList,(item)=>{
-							item.coverFileUrl = fileApi.gerPreviewUrl(item.coverFileId);
+							if (item.coverId) {
+								item.coverFileUrl = fileApi.gerPreviewUrl(item.coverId);
+							}
 						});
 						this.flowList = _.concat(this.flowList,newList);
 						if (this.flowList.length >= result.total) {

@@ -65,7 +65,6 @@
 					},
 					'region': {
 						validator: (rule, value, callback) => {
-							debugger
 							return value && value.length == 4;
 						},
 						message: '请选择所在地区'
@@ -91,7 +90,6 @@
 		},
 		methods: {
 			init(option) {
-				debugger
 				if (!option || !option.id) {
 					return
 				}

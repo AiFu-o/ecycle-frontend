@@ -10,7 +10,7 @@
 				</view>
 			</view>
 			<view class="info-container" @click="toCommodityParticular">
-				<view class="img-container">
+				<view class="img-container" v-if="dataInfo.coverFileUrl">
 					<img class="img-comp" :src="dataInfo.coverFileUrl">
 				</view>
 				<view class="info-col-container">
@@ -146,6 +146,8 @@
 					.info-text-row{
 						flex: 1;
 						font-size: 28rpx;
+						max-height: 80rpx;
+						overflow: hidden;
 					}
 					.sub-info-row{
 						color: #f3202e;

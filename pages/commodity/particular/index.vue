@@ -141,6 +141,7 @@
 				</view>
 			</view>
 		</up-modal>
+		<up-toast ref="errorMessage"></up-toast>
 	</view>
 </template>
 
@@ -163,6 +164,7 @@
 				
 				img_currentNum: 0,
 				
+				canBidding: false,
 				isShowConfirmBiddingModal: false,
 				confirmBiddingList: [],
 				selectedBidding: {},
@@ -211,6 +213,11 @@
 			this.commodityId = _option.cid;
 			this.getCommodityDetail();
 			this.getBiddingList();
+			if (userInfo.roles.indexOf("admin") >= 0 || userInfo.roles.indexOf("provider") >= 0) {
+				this.canBidding = true;
+			} else {
+				this.canBidding = false;
+			}
 		},
 		mounted() {
 			this.mathLayoutParam();
@@ -266,7 +273,26 @@
 			onConfirmBiddingSelectBidding(_bidding){
 				this.selectedBidding = _.cloneDeep(_bidding);
 			},
+			showErrorMessage(_info="",_type="default",_position="center",_icon="",_jumpParam={},_loading="false",_duration=5000,_callback=()=>{}){
+				let params = {
+					message: _info,
+					type: _type,
+					position: _position,
+					icon: _icon,
+					params: _jumpParam,
+					loading: _loading,
+					duration: _duration,
+					complete: _callback,
+				};
+				this.$refs.errorMessage.show({
+					...params
+				});
+			},
 			onBidClick(){
+				if (!this.canBidding) {
+					this.showErrorMessage("请先成为回收商~");
+					return;
+				}
 				let mostBidding = 0;
 				let mineBidding = 0;
 				_.forEach(this.biddingList,(item)=>{

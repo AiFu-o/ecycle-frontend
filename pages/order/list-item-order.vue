@@ -1,6 +1,6 @@
 <template>
 	<view class="order-order-item-container" :style="`min-height: ${layoutContainerH}px;`">
-		<view class="content-container">
+		<view class="content-container" @click="toOrderParticular">
 			<view class="top-bar-container">
 				<view class="left-panel">{{generateStatusTitle(dataInfo.status)}}</view>
 				<view class="right-panel">
@@ -9,7 +9,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="info-container" @click="toCommodityParticular">
+			<view class="info-container" @click.stop="toCommodityParticular">
 				<view class="img-container">
 					<img class="img-comp" :src="dataInfo.coverFileUrl">
 				</view>
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-	import {formatEnumToTitle2} from "@/libs/enum-format.js";
+	import {formatEnumToTitle} from "@/libs/enum-format.js";
 	export default {
 		components: {
 		},
@@ -73,7 +73,7 @@
 		},
 		methods: {
 			generateStatusTitle(_status){
-				return formatEnumToTitle2("OrderStatus",_status,"未识别的状态！");
+				return formatEnumToTitle("OrderStatus",_status,"未识别的状态！");
 			},
 			doConnectHui(){},
 			doConnectMai(){},
@@ -83,6 +83,14 @@
 				}
 				uni.navigateTo({
 					url: `/pages/commodity/particular/index?cid=${this.dataInfo.commodityId}`
+				})
+			},
+			toOrderParticular(){
+				if (!this.dataInfo.id) {
+					return;
+				}
+				uni.navigateTo({
+					url: `/pages/order/particular/index?cid=${this.dataInfo.id}`
 				})
 			},
 		}
@@ -135,6 +143,8 @@
 					.info-text-row{
 						flex: 1;
 						font-size: 28rpx;
+						max-height: 80rpx;
+						overflow: hidden;
 					}
 					.sub-info-row{
 						color: #f3202e;
