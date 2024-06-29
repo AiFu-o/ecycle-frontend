@@ -6,6 +6,62 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "5062875",
+      "name": "售后",
+      "font_class": "yishouchu",
+      "unicode": "e6dc",
+      "unicode_decimal": 59100
+    },
+    {
+      "icon_id": "3249038",
+      "name": "门槛低@2x",
+      "font_class": "menkadi",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
+      "icon_id": "10517044",
+      "name": "400",
+      "font_class": "jingjiajz",
+      "unicode": "e657",
+      "unicode_decimal": 58967
+    },
+    {
+      "icon_id": "29236699",
+      "name": "灵活可控",
+      "font_class": "linghuo",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "626482",
+      "name": "开发价值高",
+      "font_class": "jiazhigao",
+      "unicode": "e612",
+      "unicode_decimal": 58898
+    },
+    {
+      "icon_id": "679805",
+      "name": "自由安排",
+      "font_class": "ziyou",
+      "unicode": "e6ec",
+      "unicode_decimal": 59116
+    },
+    {
+      "icon_id": "1825675",
+      "name": "27",
+      "font_class": "shourugao",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
+      "icon_id": "16802425",
+      "name": "agora_-高品质教学体验",
+      "font_class": "tiyanhao",
+      "unicode": "e66f",
+      "unicode_decimal": 58991
+    },
+    {
       "icon_id": "12515452",
       "name": "右箭头",
       "font_class": "youjiantou",
@@ -151,13 +207,6 @@
       "font_class": "chushouzhong",
       "unicode": "e670",
       "unicode_decimal": 58992
-    },
-    {
-      "icon_id": "30215411",
-      "name": "Sold-已售出",
-      "font_class": "Sold-yishouchu",
-      "unicode": "e617",
-      "unicode_decimal": 58903
     },
     {
       "icon_id": "765544",

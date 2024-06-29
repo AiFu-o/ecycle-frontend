@@ -2,7 +2,7 @@
 	<view class="commodity-item-container" :style="`min-height: ${layoutContainerH}px;`" @click="onCommodityItemClick">
 		<view class="content-container">
 			<view class="img-location">
-				<img class="img-comp" :src="commodityInfo.coverFileUrl">
+				<image class="img-comp" :src="commodityInfo.coverFileUrl" mode="widthFix" lazy-load/>
 			</view>
 			<view class="name-view">
 				{{commodityInfo.name}}
