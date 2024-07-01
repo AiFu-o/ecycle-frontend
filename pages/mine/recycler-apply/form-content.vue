@@ -35,7 +35,7 @@
 					</view>
 				</up-upload>
 			</up-form-item>
-			<up-form-item label="手持身份证">
+			<!-- <up-form-item label="手持身份证">
 				<up-upload :deletable="!isApprove" :disabled="isApprove" :fileList="inHandFile" name="inHand"
 					@afterRead="afterRead" @delete="deletePic" :maxCount="1" accept="image">
 					<view class="recycler-apply-upload">
@@ -44,7 +44,7 @@
 							style="width: 50px;" />
 					</view>
 				</up-upload>
-			</up-form-item>
+			</up-form-item> -->
 		</up-form>
 	</view>
 </template>
@@ -141,12 +141,12 @@
 						}]);
 						return;
 					}
-					if (!this.inHandFile || this.inHandFile.length < 1) {
-						reject([{
-							message: "请上传手持身份证照片"
-						}]);
-						return;
-					}
+					// if (!this.inHandFile || this.inHandFile.length < 1) {
+					// 	reject([{
+					// 		message: "请上传手持身份证照片"
+					// 	}]);
+					// 	return;
+					// }
 					this.$refs.uFormRef.validate().then(() => {
 						resolve(this.applyData);
 					}).catch(errors => {
