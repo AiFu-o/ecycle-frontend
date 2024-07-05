@@ -9,7 +9,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="info-container" @click.stop="toCommodityParticular">
+			<view class="info-container">
 				<view class="img-container">
 					<img class="img-comp" :src="dataInfo.coverFileUrl">
 				</view>

@@ -90,7 +90,7 @@
 		},
 		data() {
 			return {
-				userInfo: {},
+				userInfo: null,
 				statusBarHeight: 0,
 				mineBottomData: {
 					favoriteCount: 0,
@@ -234,7 +234,7 @@
 						success: (res) => {
 							uni.clearStorage("userInfo");
 							uni.clearStorage("token");
-							this.userInfo = {};
+							this.userInfo = null;
 						}
 					})
 				}
@@ -242,30 +242,44 @@
 			getUserInfo() {
 				this.userInfo = uni.getStorageSync("userInfo");
 			},
+			getWxUserInfo() {
+				return new Promise((resolve, reject) => {
+					uni.getUserInfo({
+						provider: 'weixin',
+						success: function(infoRes) {
+							resolve(infoRes);
+						}
+					})
+				})
+			},
 			doLogin() {
 				uni.login({
 					"provider": "weixin",
 					"onlyAuthorize": true,
-					success: (e) => {
-						uni.request({
-							url: "/auth-api/wx/login",
-							method: "POST",
-							header: {
-								"content-type": "application/json;charset=utf-8"
-							},
-							data: {
-								"jsCode": e.code
-							},
-							success: (res) => {
-								uni.setStorageSync("userInfo", res.data);
-								uni.setStorageSync("token", res.data.token);
-								this.userInfo = res.data;
-							}
-						})
-					},
-					fail: function(err) {}
-				})
-			}
+					success: async (e) => {
+						try {
+							const infoRes = await this.getWxUserInfo();
+							const res = await uni.request({
+								url: "/auth-api/wx/login",
+								method: "POST",
+								header: {
+									"content-type": "application/json;charset=utf-8"
+								},
+								data: {
+									"jsCode": e.code,
+									"nickname": infoRes.userInfo.nickName,
+									"avatarUrl": infoRes.userInfo.avatarUrl,
+								},
+							});
+							uni.setStorageSync("userInfo", res.data);
+							uni.setStorageSync("token", res.data.token);
+							this.userInfo = res.data;
+						} catch (e) {
+							console.error(e);
+						}
+					}
+				});
+			},
 		}
 	}
 </script>
