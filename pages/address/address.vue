@@ -68,12 +68,18 @@
 				addressList: [],
 				layoutContainerH: 0,
 				showDelConfirm: false,
-				dataId: ""
+				dataId: "",
+				isFirstQuery:true
 			}
+		},
+		onShow() {
+			this.onLoad();
 		},
 		mounted() {
 			this.mathLayoutParam();
-			this.onLoad();
+			if(this.isFirstQuery){
+				this.onLoad();
+			}
 		},
 		props: {
 			onSelectAddress: {
